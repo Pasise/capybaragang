@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 capybara birthday · pink & purple 💜</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f8d0e8 0%, #d9b0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Quicksand', 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+            padding: 1.5rem;
+            margin: 0;
+            position: relative;
+        }
+
+        /* cute floating shapes background */
+        body::before {
+            content: "🌸";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            opacity: 0.1;
+            white-space: pre;
+            rotate: -10deg;
+            pointer-events: none;
+        }
+
+        .card {
+            max-width: 760px;
+            width: 100%;
+            background: rgba(255, 240, 250, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 4rem 4rem 3rem 3rem;
+            box-shadow: 0 20px 30px -5px #b47ab0,
+                        0 0 0 6px #ffc1e6 inset,
+                        0 0 0 12px #cda4f0 inset;
+            padding: 2.2rem 2rem 2.8rem;
+            transition: all 0.2s ease;
+            text-align: center;
+            border: 3px solid white;
+        }
+
+        /* capybara image container */
+        .capy-pic-frame {
+            background: #ffdcf5;
+            border-radius: 5rem 5rem 3rem 3rem;
+            padding: 1.2rem 1.2rem 0.8rem;
+            border: 6px solid #f4acd0;
+            box-shadow: 0 12px 0 #b46b9e, 0 8px 15px #eba6d0;
+            margin-bottom: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* capybara picture styling */
+        .capy-pic {
+            width: 220px;
+            max-width: 75%;
+            height: auto;
+            border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+            border: 8px solid #fcf0ff;
+            box-shadow: 0 0 0 5px #c77dff, 0 15px 0 #ad5f99;
+            transition: transform 0.2s ease;
+            background: #ffe3f3;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        .capy-pic:hover {
+            transform: scale(1.02) rotate(1deg);
+        }
+
+        /* speech bubble with pink-purple gradient */
+        .speech-bubble {
+            background: linear-gradient(145deg, #ffe6fa, #f3d4ff);
+            border-radius: 50px 50px 50px 20px;
+            padding: 1.5rem 1.8rem;
+            margin: 0.5rem 0 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #531b4b;
+            border: 4px solid #ff9fdb;
+            box-shadow: 8px 10px 0 #b070b0;
+            position: relative;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            bottom: -18px;
+            width: 0;
+            height: 0;
+            border-left: 22px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 26px solid #ff9fdb;
+            filter: drop-shadow(5px 5px 0 #b070b0);
+        }
+
+        /* personal message box (cute pink-purple) */
+        .personal-message {
+            background: #fbe4ff;
+            border-radius: 3rem 3rem 3rem 1rem;
+            padding: 2rem 1.8rem;
+            margin: 1.5rem 0 2rem;
+            font-size: 1.6rem;
+            line-height: 1.7;
+            color: #3e1f42;
+            border: 5px double #d58cff;
+            box-shadow: 0 8px 0 #b069b0, 0 4px 15px #f7c6ff;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: #ffbef0;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            color: #6b1e5b;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            border: 2px solid white;
+        }
+
+        /* button zone */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .birthday-btn {
+            background: linear-gradient(to bottom, #fcb5e0, #d68eff);
+            border: none;
+            border-bottom: 7px solid #a34d9e;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            color: #3f113a;
+            cursor: pointer;
+            box-shadow: 0 10px 0 #873b80, 0 5px 20px #ecb1f0;
+            transition: 0.06s linear;
+            font-family: inherit;
+            letter-spacing: 1.5px;
+            text-shadow: 0 1px 2px white;
+        }
+
+        .birthday-btn:active {
+            transform: translateY(8px);
+            border-bottom-width: 2px;
+            box-shadow: 0 3px 0 #873b80, 0 5px 12px #d59bff;
+        }
+
+        .birthday-btn.secondary {
+            background: linear-gradient(to bottom, #fac8ef, #e2b0ff);
+            border-bottom-color: #b65a9c;
+            color: #4f194b;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 0 #9b4b89;
+        }
+
+        /* video container */
+        .video-box {
+            margin: 2rem 0 1.2rem;
+            border-radius: 3rem 3rem 3rem 3rem;
+            overflow: hidden;
+            border: 8px solid #feb1e2;
+            box-shadow: 0 16px 0 #b058a0, 0 8px 25px #cf95e8;
+            background: #1e1e1e;
+        }
+
+        /* local video styling for .mov */
+        .birthday-video {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #1a0721;
+            border: none;
+            outline: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .footnote {
+            margin-top: 2rem;
+            color: #973c8a;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 0 #ffe4f5;
+            background: #ffe2fc;
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            border: 3px solid #f7abd9;
+        }
+
+        /* extra cuteness */
+        .cute-icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(2px 4px 0 #cd8fcd);
+            margin: 0 0.2rem;
+        }
+
+        /* file instructions */
+        .file-note {
+            background: #ffd9f0;
+            color: #831d68;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            margin-top: 1rem;
+            border: 3px solid #ff94cf;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="card" id="birthdayCard">
+
+    <!-- SCENE 1: first capybara (src/capybara.png) + intro message + continue button -->
+    <div id="scene1">
+        <div class="capy-pic-frame">
+            <img class="capy-pic" 
+                 src="src/capybara.png" 
+                 alt="capybara with birthday hat"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22200%22%20viewBox%3D%220%200%20200%20200%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%2290%22%20fill%3D%22%23ffc1e0%22%2F%3E%3Ccircle%20cx%3D%2265%22%20cy%3D%2280%22%20r%3D%2215%22%20fill%3D%22%23553b1f%22%2F%3E%3Ccircle%20cx%3D%22135%22%20cy%3D%2280%22%20r%3D%2215%22%20fill%3D%22%23553b1f%22%2F%3E%3Cellipse%20cx%3D%22100%22%20cy%3D%22130%22%20rx%3D%2230%22%20ry%3D%2220%22%20fill%3D%22%23995e3a%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%22180%22%20font-size%3D%2224%22%20fill%3D%22%236d274b%22%3E🦫%3C%2Ftext%3E%3C%2Fsvg%3E';">
+        </div>
+        <div class="speech-bubble">
+            <span class="cute-icon">🎀</span> Hello! I heard that today is your birthday.<br> 
+            I was engaged to deliver u a message <span class="cute-icon">🎀</span>
+        </div>
+        <div class="btn-group">
+            <button class="birthday-btn" id="continueBtn">▶ Click here to get the message!!!</button>
+        </div>
+        <div class="footnote">
+            🍑 Go, shorty. It's your birthday 🍑
+        </div>
+        <div class="file-note">19th February</div>
+    </div>
+
+    <!-- SCENE 2: second capybara (src/capybara2.png) with playful message + button -->
+    <div id="scene2" class="hidden">
+        <div class="capy-pic-frame" style="background: #f3ccff; border-color: #d696f0;">
+            <!-- SECOND CAPYBARA IMAGE (src/capybara2.png) -->
+            <img class="capy-pic" style="width: 180px;" 
+                 src="src/capybara2.png"
+                 alt="capybara looking away playfully"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22180%22%20viewBox%3D%220%200%20180%20180%22%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2290%22%20r%3D%2275%22%20fill%3D%22%23f9b0d0%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2270%22%20r%3D%2212%22%20fill%3D%22%23553b1f%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%2270%22%20r%3D%2212%22%20fill%3D%22%23553b1f%22%2F%3E%3Cpath%20d%3D%22M65%20120 Q90%20140%20115%20120%22%20stroke%3D%22%238d4d70%22%20stroke-width%3D%228%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2245%22%20y%3D%22160%22%20font-size%3D%2230%22%20fill%3D%22%23822960%22%3E🙈%3C%2Ftext%3E%3C%2Fsvg%3E';">
+        </div>
+
+        <!-- playful message: "you can read, I'm not looking" -->
+        <div class="personal-message" style="font-size: 2rem; padding: 1.5rem;">
+            You can read, I'm not looking 🙈
+        </div>
+
+        <!-- the sweet birthday note -->
+        <div style="background: #ffe6fd; border-radius: 2rem; padding: 1rem; margin: 0.5rem 0 1rem;">
+            <span class="highlight"> Happy birthday! </span><br>
+            Joyeux Anniversaire le bro, God Bless you! <br>
+            Beaucoup de santé! Succès! Bonheur!  <br>
+            Keep shining, cuz that's what you're meant for!!!<br>
+             <br>
+        </div>
+
+        <div class="btn-group">
+            <button class="birthday-btn secondary" id="showVideoBtn">Click here to continue!!!</button>
+        </div>
+        
+    </div>
+
+    <!-- SCENE 3: third capybara (src/capybara3.png) + video -->
+    <div id="scene3" class="hidden">
+        <div class="capy-pic-frame" style="background: #efc3fc; padding: 0.8rem;">
+            <!-- THIRD CAPYBARA IMAGE (src/capybara3.png) -->
+            <img class="capy-pic" style="width: 160px; border-width: 6px;" 
+                 src="src/capybara3.png"
+                 alt="capybara ready for video"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22160%22%20height%3D%22160%22%20viewBox%3D%220%200%20160%20160%22%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2280%22%20r%3D%2265%22%20fill%3D%22%23fbb5da%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2265%22%20r%3D%2210%22%20fill%3D%22%23553b1f%22%2F%3E%3Ccircle%20cx%3D%22105%22%20cy%3D%2265%22%20r%3D%2210%22%20fill%3D%22%23553b1f%22%2F%3E%3Crect%20x%3D%2270%22%20y%3D%22110%22%20width%3D%2220%22%20height%3D%2215%22%20fill%3D%22%23944b7c%22%2F%3E%3Ctext%20x%3D%2235%22%20y%3D%22145%22%20font-size%3D%2228%22%20fill%3D%22%23922d74%22%3E🎥%3C%2Ftext%3E%3C%2Fsvg%3E';">
+            <span style="display: block; font-size: 2rem; margin-top: 0.2rem;">🎥✨</span>
+        </div>
+
+        <!-- VIDEO CORRIGÉE - avec un ID unique et une source claire -->
+        <div class="video-box">
+            <video id="birthdayVideo" class="birthday-video" controls preload="auto">
+                <!-- Utilisez le chemin CORRECT vers votre fichier vidéo -->
+                <source src="birthday_video.MOV" type="video/quicktime">
+                <source src="birthday_video.mp4" type="video/mp4">
+                <source src="birthday_video.webm" type="video/webm">
+                Votre navigateur ne supporte pas la balise vidéo.
+            </video>
+        </div>
+
+        <div style="margin-top: 1.8rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button class="birthday-btn secondary" id="replayBtn">🔁 replay video</button>
+        </div>
+        <div class="footnote" style="background: #ffdcf2;">
+            🩷 Happy birthday from the capybara gang 🩷
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // scenes
+        const scene1 = document.getElementById('scene1');
+        const scene2 = document.getElementById('scene2');
+        const scene3 = document.getElementById('scene3');
+        const continueBtn = document.getElementById('continueBtn');
+        const showVideoBtn = document.getElementById('showVideoBtn');
+        const replayBtn = document.getElementById('replayBtn');
+        const videoElement = document.getElementById('birthdayVideo');
+
+        // Fonction pour réinitialiser la vidéo
+        function resetVideo() {
+            if (videoElement) {
+                // Recharger la vidéo pour éviter les erreurs
+                videoElement.load();
+                // Petite pause pour s'assurer que tout est prêt
+                setTimeout(() => {
+                    videoElement.pause();
+                    videoElement.currentTime = 0;
+                }, 100);
+            }
+        }
+
+        function showOnlyScene(sceneId) {
+            [scene1, scene2, scene3].forEach(scene => scene?.classList.add('hidden'));
+            
+            if (sceneId === 'scene1') {
+                scene1?.classList.remove('hidden');
+            }
+            if (sceneId === 'scene2') {
+                scene2?.classList.remove('hidden');
+            }
+            if (sceneId === 'scene3') {
+                scene3?.classList.remove('hidden');
+                // Réinitialiser la vidéo quand on arrive sur la scène 3
+                resetVideo();
+            }
+        }
+
+        // start with scene1
+        showOnlyScene('scene1');
+
+        // Continue button -> scene2
+        continueBtn.addEventListener('click', () => {
+            showOnlyScene('scene2');
+        });
+
+        // Show video button -> scene3
+        showVideoBtn.addEventListener('click', () => {
+            showOnlyScene('scene3');
+        });
+
+        // replay button -> rewind and pause
+        replayBtn.addEventListener('click', () => {
+            if (videoElement) {
+                videoElement.currentTime = 0;
+                videoElement.play().catch(error => {
+                    console.log("Lecture automatique impossible, l'utilisateur doit cliquer sur play", error);
+                });
+            }
+        });
+
+        // optional cute double-click to go back (capybara images)
+        const capyImgScene2 = document.querySelector('#scene2 .capy-pic');
+        const capyImgScene3 = document.querySelector('#scene3 .capy-pic');
+
+        if (capyImgScene2) {
+            capyImgScene2.addEventListener('dblclick', () => showOnlyScene('scene1'));
+        }
+        if (capyImgScene3) {
+            capyImgScene3.addEventListener('dblclick', () => showOnlyScene('scene2'));
+        }
+
+        // CORRECTION: S'assurer que la vidéo est fonctionnelle au chargement
+        window.addEventListener('load', function() {
+            if (videoElement) {
+                // Précharger la vidéo mais ne pas la lancer
+                videoElement.load();
+            }
+        });
+    })();
+</script>
+
+<!-- 
+    INSTRUCTIONS POUR FAIRE FONCTIONNER LA VIDÉO:
+    
+    1. Vérifiez que votre fichier vidéo "birthday_video.mov" est dans le MÊME DOSSIER que ce fichier HTML
+    
+    2. Si la vidéo ne fonctionne toujours pas, essayez ces solutions:
+       - Renommez votre vidéo en "video.mov" et changez le src dans la balise <source>
+       - Convertissez votre vidéo en .mp4 (plus compatible avec les navigateurs)
+       - Utilisez un chemin absolu comme: src="C:/Users/VotreNom/Videos/video.mov"
+    
+    3. Testez dans différents navigateurs (Chrome fonctionne mieux avec .mp4)
+    
+    La vidéo est maintenant correctement rechargée à chaque fois qu'on arrive sur la scène 3 !
+-->
+</body>
+</html>
