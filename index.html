@@ -177,7 +177,7 @@
             box-shadow: 0 8px 0 #9b4b89;
         }
 
-        /* video container */
+        /* video container - perfect for ScreenPal iframe */
         .video-box {
             margin: 2rem 0 1.2rem;
             border-radius: 3rem 3rem 3rem 3rem;
@@ -185,16 +185,21 @@
             border: 8px solid #feb1e2;
             box-shadow: 0 16px 0 #b058a0, 0 8px 25px #cf95e8;
             background: #1e1e1e;
+            position: relative;
+            width: 100%;
+            /* Maintain 16:9 aspect ratio for the container */
+            aspect-ratio: 16 / 9;
         }
 
-        /* local video styling for .mov */
-        .birthday-video {
-            display: block;
+        /* Style the ScreenPal iframe to fill the container */
+        .video-box iframe,
+        .video-box .sp-embed-player {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #1a0721;
-            border: none;
-            outline: none;
+            height: 100%;
+            border: 0;
         }
 
         .hidden {
@@ -237,7 +242,7 @@
 <body>
 <div class="card" id="birthdayCard">
 
-    <!-- SCENE 1: first capybara (src/capybara.png) + intro message + continue button -->
+    <!-- SCENE 1: first capybara + intro message + continue button -->
     <div id="scene1">
         <div class="capy-pic-frame">
             <img class="capy-pic" 
@@ -258,7 +263,7 @@
         <div class="file-note">19th February</div>
     </div>
 
-    <!-- SCENE 2: second capybara (src/capybara2.png) with playful message + button -->
+    <!-- SCENE 2: second capybara with playful message + button -->
     <div id="scene2" class="hidden">
         <div class="capy-pic-frame" style="background: #f3ccff; border-color: #d696f0;">
             <!-- SECOND CAPYBARA IMAGE (src/capybara2.png) -->
@@ -288,7 +293,7 @@
         
     </div>
 
-    <!-- SCENE 3: third capybara (src/capybara3.png) + video -->
+    <!-- SCENE 3: third capybara + SCREENPAL EMBEDDED VIDEO -->
     <div id="scene3" class="hidden">
         <div class="capy-pic-frame" style="background: #efc3fc; padding: 0.8rem;">
             <!-- THIRD CAPYBARA IMAGE (src/capybara3.png) -->
@@ -299,15 +304,32 @@
             <span style="display: block; font-size: 2rem; margin-top: 0.2rem;">🎥✨</span>
         </div>
 
-        <!-- VIDEO CORRIGÉE - avec un ID unique et une source claire -->
+        <!-- SCREENPAL VIDEO EMBED -->
+        <!-- 
+            ⭐ IMPORTANT: Replace the ENTIRE div below with your actual ScreenPal embed code ⭐
+            
+            How to get your embed code:
+            1. Upload your video to ScreenPal (screenpal.com)
+            2. Open the video in your account
+            3. Click "Share" or "Embed" 
+            4. Copy the HTML embed code (it will look similar to the example below)
+            5. Paste it INSIDE the video-box div, replacing this comment and the example div
+        -->
         <div class="video-box">
-            <video id="birthdayVideo" class="birthday-video" controls preload="auto">
-                <!-- Utilisez le chemin CORRECT vers votre fichier vidéo -->
-                <source src="birthday_video.MOV" type="video/quicktime">
-                <source src="birthday_video.mp4" type="video/mp4">
-                <source src="birthday_video.webm" type="video/webm">
-                Votre navigateur ne supporte pas la balise vidéo.
-            </video>
+            <!-- EXAMPLE ScreenPal embed code - REPLACE THIS WITH YOUR ACTUAL CODE -->
+            <!-- Your code will look something like this (but with YOUR video ID): -->
+            <div class="sp-embed-player" data-id="cTfjqQnjQJs">
+                <script src="https://go.screenpal.com/player/appearance/cTfjqQnjQJs"></script>
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    scrolling="no" 
+                    src="https://video.screenpal.com/player/cTfjqQnjQJs?width=100%&height=100%&ff=1&title=0" 
+                    allowfullscreen="true">
+                </iframe>
+            </div>
+            <!-- ⭐ PASTE YOUR ACTUAL SCREENPAL EMBED CODE ABOVE ⭐ -->
         </div>
 
         <div style="margin-top: 1.8rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
@@ -315,6 +337,9 @@
         </div>
         <div class="footnote" style="background: #ffdcf2;">
             🩷 Happy birthday from the capybara gang 🩷
+        </div>
+        <div class="file-note" style="margin-top: 1rem;">
+            📸 using: src/capybara3.png · 🎬 video hosted on ScreenPal
         </div>
     </div>
 </div>
@@ -328,20 +353,9 @@
         const continueBtn = document.getElementById('continueBtn');
         const showVideoBtn = document.getElementById('showVideoBtn');
         const replayBtn = document.getElementById('replayBtn');
-        const videoElement = document.getElementById('birthdayVideo');
-
-        // Fonction pour réinitialiser la vidéo
-        function resetVideo() {
-            if (videoElement) {
-                // Recharger la vidéo pour éviter les erreurs
-                videoElement.load();
-                // Petite pause pour s'assurer que tout est prêt
-                setTimeout(() => {
-                    videoElement.pause();
-                    videoElement.currentTime = 0;
-                }, 100);
-            }
-        }
+        
+        // Get the video container elements (for replay functionality)
+        const videoBox = document.querySelector('.video-box');
 
         function showOnlyScene(sceneId) {
             [scene1, scene2, scene3].forEach(scene => scene?.classList.add('hidden'));
@@ -354,8 +368,6 @@
             }
             if (sceneId === 'scene3') {
                 scene3?.classList.remove('hidden');
-                // Réinitialiser la vidéo quand on arrive sur la scène 3
-                resetVideo();
             }
         }
 
@@ -372,13 +384,28 @@
             showOnlyScene('scene3');
         });
 
-        // replay button -> rewind and pause
+        // Replay button: reload the iframe to restart the video
         replayBtn.addEventListener('click', () => {
-            if (videoElement) {
-                videoElement.currentTime = 0;
-                videoElement.play().catch(error => {
-                    console.log("Lecture automatique impossible, l'utilisateur doit cliquer sur play", error);
-                });
+            // Find the iframe inside scene3
+            const iframe = document.querySelector('#scene3 iframe');
+            if (iframe) {
+                // Reload iframe by resetting its src
+                const currentSrc = iframe.src;
+                iframe.src = '';
+                iframe.src = currentSrc;
+            }
+            
+            // Alternative: If ScreenPal uses the sp-embed-player div with script,
+            // we can try to find and refresh the player
+            const embedPlayer = document.querySelector('#scene3 .sp-embed-player');
+            if (embedPlayer && !iframe) {
+                // For complex embeds, a page section reload might be needed
+                // Simple approach: hide and show the container
+                const parentBox = document.querySelector('#scene3 .video-box');
+                if (parentBox) {
+                    parentBox.style.opacity = '0.99';
+                    setTimeout(() => parentBox.style.opacity = '1', 10);
+                }
             }
         });
 
@@ -392,30 +419,24 @@
         if (capyImgScene3) {
             capyImgScene3.addEventListener('dblclick', () => showOnlyScene('scene2'));
         }
-
-        // CORRECTION: S'assurer que la vidéo est fonctionnelle au chargement
-        window.addEventListener('load', function() {
-            if (videoElement) {
-                // Précharger la vidéo mais ne pas la lancer
-                videoElement.load();
-            }
-        });
     })();
 </script>
 
 <!-- 
-    INSTRUCTIONS POUR FAIRE FONCTIONNER LA VIDÉO:
+    🚀 DEPLOYMENT INSTRUCTIONS FOR SCREENPAL:
     
-    1. Vérifiez que votre fichier vidéo "birthday_video.mov" est dans le MÊME DOSSIER que ce fichier HTML
+    1. Go to https://screenpal.com/ and create a free account
+    2. Upload your birthday_video.mov file
+    3. After upload, open the video and click "Share" or "Embed" [citation:2]
+    4. Copy the entire embed code provided by ScreenPal
+    5. Replace the EXAMPLE embed code in the video-box div (scene3) with YOUR code
+    6. Save this HTML file and commit to GitHub
     
-    2. Si la vidéo ne fonctionne toujours pas, essayez ces solutions:
-       - Renommez votre vidéo en "video.mov" et changez le src dans la balise <source>
-       - Convertissez votre vidéo en .mp4 (plus compatible avec les navigateurs)
-       - Utilisez un chemin absolu comme: src="C:/Users/VotreNom/Videos/video.mov"
+    ✅ Privacy: ScreenPal lets you set videos to "Unlisted" so only people with the link can see it
+    ✅ The video stays on ScreenPal's servers - your GitHub repo stays under 100MB
+    ✅ The embed will look beautiful in the pink/purple video frame
     
-    3. Testez dans différents navigateurs (Chrome fonctionne mieux avec .mp4)
-    
-    La vidéo est maintenant correctement rechargée à chaque fois qu'on arrive sur la scène 3 !
+    Your friend will see the video perfectly when they click through!
 -->
 </body>
 </html>
